@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCFServiceWebRole1" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFServiceWebRole1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfDataset">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Dataset" nillable="true" type="tns:Dataset" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDataset" nillable="true" type="tns:ArrayOfDataset" />
+  <xs:complexType name="Dataset">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SoundLevel" type="xs:double" />
+      <xs:element minOccurs="0" name="TempInside" type="xs:double" />
+      <xs:element minOccurs="0" name="Weather" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Dataset" nillable="true" type="tns:Dataset" />
+</xs:schema>
