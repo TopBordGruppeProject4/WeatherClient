@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UDPListenerEx.TempSoundService;
+using UDPListenerEx.WeatherService;
 
 namespace UDPListenerEx
 {
@@ -26,7 +27,7 @@ namespace UDPListenerEx
                 TempSoundService.Service1Client service = new Service1Client();
                 UdpClient listener = new UdpClient(ListenPort);
                 IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, ListenPort);
-
+                WeatherService.GlobalWeatherSoapClient weather = new GlobalWeatherSoapClient();
                 try
                 {
                     while (!done)
@@ -47,9 +48,14 @@ namespace UDPListenerEx
                         Random rand = new Random();
                         double sound = rand.Next(40, 60);
                         Trace.WriteLine(sound);
-                        
-                        
-                        string rows =service.Datatransfer(time, temp, sound, "Very hot");
+                       
+                        string TodaysWeather = weather.GetWeather("Roskilde", "Denmark");
+                        string[] Weatherlist = TodaysWeather.Split('>');
+                        string[] Weatherlist2 = Weatherlist[11].Split('<');
+                        string[] Weatherlist3 = Weatherlist2[0].Split(' ');
+                        string[] Weatherlist4 = Weatherlist3[3].Split('(');
+
+                        string rows =service.Datatransfer(time, temp, sound, Weatherlist4[1]);
                         Trace.WriteLine(rows);
                         Trace.Flush();
                         Thread.Sleep(10000);
@@ -71,10 +77,10 @@ namespace UDPListenerEx
         }
         public static int Main()
         {
-            SetUpTracing();
+      
             UDPListener.StartListener(7000);
             
-            Trace.Flush();
+          
             
             return 0;
             
