@@ -51,9 +51,10 @@ namespace UDPListenerEx
                        
                         string TodaysWeather = weather.GetWeather("Roskilde", "Denmark");
                         string[] Weatherlist = TodaysWeather.Split('>');
-                        string[] Weatherlist2 = Weatherlist[11].Split('<');
+                        string[] Weatherlist2 = Weatherlist[9].Split('<');
                         string[] Weatherlist3 = Weatherlist2[0].Split(' ');
                         string[] Weatherlist4 = Weatherlist3[3].Split('(');
+                        Console.WriteLine(Weatherlist4[1]);
 
                         string rows =service.Datatransfer(time, temp, sound, Weatherlist4[1]);
                         Console.WriteLine(rows);
