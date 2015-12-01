@@ -76,36 +76,18 @@ namespace UDPListenerEx
 
             
         }
-        public static int Main()
+        public static void Main()
         {
       
             UDPListener.StartListener(7000);
             
           
             
-            return 0;
+            
             
 
         }
-        private static void SetUpTracing()
-        {
-            Trace.Listeners.Add(new ConsoleTraceListener());
-            FileStream fs = new FileStream("c:/temp/udplistenerlog.txt", FileMode.Append);
-            TextWriterTraceListener textWriterTraceListener = new TextWriterTraceListener(fs);
-
-            Trace.Listeners.Add(textWriterTraceListener);
-
-            ShowTraceListeners();
-        }
-
-        private static void ShowTraceListeners()
-        {
-            TraceListenerCollection listeners = Trace.Listeners;
-            foreach (object listener in listeners)
-            {
-                Console.WriteLine(listener);
-            }
-        }
+        
 
         
     }
