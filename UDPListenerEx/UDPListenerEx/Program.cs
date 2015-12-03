@@ -50,6 +50,7 @@ namespace UDPListenerEx
                         string message = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
                         string[] response = message.Split(':');
                         double temp = Convert.ToDouble(response[6].Trim().Substring(0, 3));
+                        temp = temp/10;
                         Console.WriteLine(temp);
                         string time = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy");
                         Console.WriteLine(time);
