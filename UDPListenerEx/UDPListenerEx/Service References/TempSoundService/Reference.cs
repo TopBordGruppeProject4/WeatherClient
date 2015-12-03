@@ -116,6 +116,12 @@ namespace UDPListenerEx.TempSoundService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GETDATAFUCK", ReplyAction="http://tempuri.org/IService1/GETDATAFUCKResponse")]
         System.Threading.Tasks.Task<string> GETDATAFUCKAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ErrorLog", ReplyAction="http://tempuri.org/IService1/ErrorLogResponse")]
+        string ErrorLog(string date, string error);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ErrorLog", ReplyAction="http://tempuri.org/IService1/ErrorLogResponse")]
+        System.Threading.Tasks.Task<string> ErrorLogAsync(string date, string error);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSpecificDateNOLIKE", ReplyAction="http://tempuri.org/IService1/GetSpecificDateNOLIKEResponse")]
         UDPListenerEx.TempSoundService.Dataset[] GetSpecificDateNOLIKE(string date);
         
@@ -168,6 +174,14 @@ namespace UDPListenerEx.TempSoundService {
         
         public System.Threading.Tasks.Task<string> GETDATAFUCKAsync() {
             return base.Channel.GETDATAFUCKAsync();
+        }
+        
+        public string ErrorLog(string date, string error) {
+            return base.Channel.ErrorLog(date, error);
+        }
+        
+        public System.Threading.Tasks.Task<string> ErrorLogAsync(string date, string error) {
+            return base.Channel.ErrorLogAsync(date, error);
         }
         
         public UDPListenerEx.TempSoundService.Dataset[] GetSpecificDateNOLIKE(string date) {

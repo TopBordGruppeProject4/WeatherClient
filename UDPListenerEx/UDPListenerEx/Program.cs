@@ -16,17 +16,25 @@ namespace UDPListenerEx
 {
     class Program
     {
-        
+        /// <summary>
+        /// This class contains the method, that we use to get readings from our local censors plus the weather outside.
+        /// </summary>
         public static class UDPListener
         {
-            
 
-            public static void StartListener(int ListenPort)
+            /// <summary>
+            /// This method is used to get readings from our local censors plus the weather outside.
+            /// </summary>
+            /// <param name="listenPort"> This parameter is used to choose on which port, that you want to listen on.</param>
+            public static void StartListener(int listenPort)
             {
+                
+                string checkWeather = "Error";
+                var errorOccurred = false;
                 bool done = false;
                 TempSoundService.Service1Client service = new Service1Client();
-                UdpClient listener = new UdpClient(ListenPort);
-                IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, ListenPort);
+                UdpClient listener = new UdpClient(listenPort);
+                IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
                 WeatherService.GlobalWeatherSoapClient weather = new GlobalWeatherSoapClient();
                 try
                 {
@@ -49,14 +57,33 @@ namespace UDPListenerEx
                         double sound = rand.Next(40, 60);
                         Console.WriteLine(sound);
                        
-                        string TodaysWeather = weather.GetWeather("Roskilde", "Denmark");
-                        string[] Weatherlist = TodaysWeather.Split('>');
-                        string[] Weatherlist2 = Weatherlist[9].Split('<');
-                        string[] Weatherlist3 = Weatherlist2[0].Split(' ');
-                        string[] Weatherlist4 = Weatherlist3[3].Split('(');
-                        Console.WriteLine(Weatherlist4[1]);
+                        string todaysWeather = weather.GetWeather("Roskilde", "Denmark");
 
-                        string rows =service.Datatransfer(time, temp, sound, Weatherlist4[1]);
+                        try
+                        {
+                            string[] weatherlist = todaysWeather.Split('>');
+                            string[] weatherlist2 = weatherlist[9].Split('<');
+                            string[] weatherlist3 = weatherlist2[0].Split(' ');
+                            string[] weatherlist4 = weatherlist3[3].Split('(');
+                            checkWeather = weatherlist4[1];
+                        }
+                        catch (Exception)
+                        {
+
+                            errorOccurred = true;
+                        }
+
+                        if (errorOccurred)
+                        {
+                            string[] weatherlist5 = todaysWeather.Split('>');
+                            string[] weatherlist6 = weatherlist5[11].Split('<');
+                            string[] weatherlist7 = weatherlist6[0].Split(' ');
+                            string[] weatherlist8 = weatherlist7[3].Split('(');
+                            checkWeather = weatherlist8[1];
+                        }
+                        
+
+                        string rows =service.Datatransfer(time, temp, sound, checkWeather);
                         Console.WriteLine(rows);
                         
                         Thread.Sleep(10000);
@@ -66,7 +93,8 @@ namespace UDPListenerEx
                 }
                 catch (Exception e)
                 {
-                    Trace.WriteLine(e.ToString());
+                    string time = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy");
+                    service.Datatransfer(time, 0, 0, "Error occurred while receiving broadcast");
                 }
                 finally
                 {
@@ -78,7 +106,7 @@ namespace UDPListenerEx
         }
         public static void Main()
         {
-      
+            
             UDPListener.StartListener(7000);
             
           

@@ -13,6 +13,12 @@
   <wsdl:message name="IService1_GETDATAFUCK_OutputMessage">
     <wsdl:part name="parameters" element="tns:GETDATAFUCKResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_ErrorLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:ErrorLog" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ErrorLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ErrorLogResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_GetSpecificDateNOLIKE_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSpecificDateNOLIKE" />
   </wsdl:message>
@@ -36,6 +42,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GETDATAFUCK" message="tns:IService1_GETDATAFUCK_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GETDATAFUCKResponse" message="tns:IService1_GETDATAFUCK_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ErrorLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ErrorLog" message="tns:IService1_ErrorLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ErrorLogResponse" message="tns:IService1_ErrorLog_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSpecificDateNOLIKE">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetSpecificDateNOLIKE" message="tns:IService1_GetSpecificDateNOLIKE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetSpecificDateNOLIKEResponse" message="tns:IService1_GetSpecificDateNOLIKE_OutputMessage" />
@@ -53,6 +63,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GETDATAFUCK">
       <soap:operation soapAction="http://tempuri.org/IService1/GETDATAFUCK" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ErrorLog">
+      <soap:operation soapAction="http://tempuri.org/IService1/ErrorLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
