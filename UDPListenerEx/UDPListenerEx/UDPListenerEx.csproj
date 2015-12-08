@@ -57,9 +57,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="UDPListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\WeatherService\globalweather.wsdl" />
     <None Include="Service References\TempSoundService\Service1.wsdl" />
     <None Include="Service References\TempSoundService\Service1.xsd">
